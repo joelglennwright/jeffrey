@@ -1,6 +1,6 @@
 tell application "System Events" to set the visible of every process to true
 
-set white_list to {"Finder", "Google Chrome", "MAMP"}
+set white_list to {"Finder", "Google Chrome", "MAMP", "iTunes"}
 
 try
     tell application "Finder"
