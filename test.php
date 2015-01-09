@@ -4,19 +4,18 @@ $module = $_POST["module"];
 
 echo $module;
 
+exec('osascript  close_all_chrome_tabs.scpt');
+
 if($module == "start"){
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Morning"\'');	
 }else if($module == "code"){
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
 	exec('osascript -e \'open app "Xcode"\'');
 	exec('osascript -e \'open app "Slack"\'');
-	exec('osascript -e \'open location "http://www.parse.com"\'');
 	exec('osascript -e \'open location "http://www.asana.com"\'');
 	exec('osascript -e \'open location "http://www.konotor.com"\'');
 } else if($module == "stop"){
-	exec('osascript -e \'tell application "iTunes" to quit\'');
-	exec('osascript -e \'tell application "Xcode" to quit\'');
-	exec('osascript -e \'tell application "Slack" to quit\'');
+	exec('osascript close_all_apps.scpt');
 	//exec('osascript -e \'open location "https://www.youtube.com/watch?v=1dWjKkF0Zi4"\'');
 }else if($module == "write"){
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Classical Music"\'');	
