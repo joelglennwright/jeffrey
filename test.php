@@ -4,24 +4,24 @@ $module = $_POST["module"];
 
 echo $module;
 
-exec('osascript close_all_chrome_tabs.scpt');
+exec('osascript close_all_chrome_tabs.scpt');	
 
 if($module == "start"){
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Morning"\'');	
 }else if($module == "code"){
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
-	exec('osascript -e \'open app "Xcode"\'');
-	exec('osascript -e \'open app "Slack"\'');
-	exec('osascript -e \'open location "http://www.asana.com"\'');
+	exec('osascript -e \'tell application "Xcode" to activate\'');
+	exec('osascript -e \'tell application "Slack" to activate\'');
+	exec('osascript -e \'open location "https://app.asana.com/"\'');
 	exec('osascript -e \'open location "http://www.konotor.com"\'');
 } else if($module == "stop"){
+	exec('osascript -e \'tell app "iTunes" to quit\'');
 	exec('osascript close_all_apps.scpt');
-	//exec('osascript -e \'open location "https://www.youtube.com/watch?v=1dWjKkF0Zi4"\'');
 }else if($module == "write"){
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Classical Music"\'');	
-	exec('osascript -e \'open app "Sublime Text"\'');
+	exec('osascript -e \'tell application "Sublime Text" to activate\'');
 }else if($module == "ukulele"){
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'open location "http://analogmusicstudios.com/sublime-santeria-ukulele-chords/"\'');
@@ -38,7 +38,16 @@ if($module == "start"){
 	exec('osascript -e \'open location "https://www.google.com/analytics/web/?hl=en#report/app-overview/a49381420w81115025p83961631/"\'');
 	exec('osascript -e \'open location "https://crashlytics.com/teamstory/ios/apps/com.growple.teamstory/answers/daily_active_users"\'');
 	exec('osascript -e \'open location "https://docs.google.com/spreadsheets/d/0AgYLId9W6abVdHdFbnVSZXBWT3BHZnlnUzhhSU1kM1E/edit?usp=drive_web"\'');
+}else if($module == "music"){
+	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
+}else if($module == "next"){
+	exec('osascript -e \'tell app "iTunes" to play next track\'');
+}else if($module == "switch"){
+	exec('osascript  switch_audio_output.scpt');
 }
+
+
+//exec('osascript -e \'tell application "iTunes" to set sound volume to (sound volume + 40)\'');
 
 
 /*
