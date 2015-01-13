@@ -213,7 +213,6 @@ var recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
 recognition.interimResults = true;
 
-
 /* Event handlers - Set of events triggered for each call*/
 
 recognition.onstart = function() {
@@ -350,9 +349,39 @@ recognition.onresult = function(event) {
       console.log("in uke");
 
       triggerModule("analytics")
+    }else if(interim_transcript.indexOf("test") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("in backtest");
+
+      triggerModule("backtest")
+    }else if(interim_transcript.indexOf("music") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("in music");
+
+      triggerModule("music")
+    }else if(interim_transcript.indexOf("next") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("in next");
+
+      triggerModule("next");
+    }else if(interim_transcript.indexOf("switch") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("switch");
+
+      triggerModule("switch");
     }
-
-
 
   }
 
@@ -448,33 +477,43 @@ function triggerModule(module){
       case 'analytics':
           introMsg = "Setting up your data dashboard for Teamstory.";
           break;
+      case 'music':
+          introMsg = "Excellent. Let me put something on.";
+          break;
+      case 'next':
+          introMsg = "Right away.";
+          break;
+      case 'switch':
+          introMsg = "Switching audio.";
+          break;
       default:
   }
 
-  if(module == "code"){
-    jeffreySpeak(introMsg);
-    $.ajax({
-        type: "POST",
-        url: "test.php",
-        data: {module: module}
-      }).done(function(){
-          answered = 0;
-      });
-  }else{
-    jeffreySpeak(introMsg, function(){
+    if(module == "code"){
+      jeffreySpeak(introMsg);
       $.ajax({
-        type: "POST",
-        url: "test.php",
-        data: {module: module}
-      }).done(function(){
-          answered = 0;
-          if(module == "write"){
-            jeffreySpeak("Remember master Hidalgo, we do not write in order to be understood; we write in order to understand. Good luck.");
-          }
+          type: "POST",
+          url: "test.php",
+          data: {module: module}
+        }).done(function(){
+            answered = 0;
+        });
+    }else{
+      jeffreySpeak(introMsg, function(){
+        $.ajax({
+          type: "POST",
+          url: "test.php",
+          data: {module: module}
+        }).done(function(){
+            answered = 0;
+            if(module == "write"){
+              jeffreySpeak("Remember master Hidalgo, we do not write in order to be understood; we write in order to understand. Good luck.");
+            }
 
+        });
       });
-    });
-  }
+    }
+   
 }
 
   //jeffreySpeak(prettyLong);
