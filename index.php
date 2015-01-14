@@ -1,6 +1,7 @@
 <html>
 <head> 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.0.2/jquery.simpleWeather.min.js"></script>
 </head>
 <title>Web Speech API Demo</title>
 <style>
@@ -191,6 +192,7 @@ var current_style;
 /* Input commands */
 
 function startButton(event) {
+
   if (recognizing) {
     recognition.stop();
     return;
@@ -202,9 +204,6 @@ function startButton(event) {
   	ignore_onend = false;
  	start_img.src = 'assets/mic-slash.gif';
   	showInfo('info_allow');
-
-  
-  
 }
 
 
@@ -289,7 +288,7 @@ recognition.onresult = function(event) {
   interim_span.innerHTML = linebreak(interim_transcript);
 
 
-  if(interim_transcript.indexOf("Jeffrey") >= 0 && answered == 0){
+  if(interim_transcript.indexOf("Jef") >= 0 && answered == 0){
 
     console.log("in jeffrey");
 
@@ -315,7 +314,7 @@ recognition.onresult = function(event) {
 
       //recognition.stop();
 
-    }else if(interim_transcript.indexOf("stop") >= 0){
+    }else if(interim_transcript.indexOf("I'm done for the day") >= 0){
 
       answered = 1;
 
@@ -357,7 +356,7 @@ recognition.onresult = function(event) {
       console.log("in backtest");
 
       triggerModule("backtest")
-    }else if(interim_transcript.indexOf("music") >= 0){
+    }else if(interim_transcript.indexOf("play some music") >= 0){
 
       answered = 1;
 
@@ -373,23 +372,25 @@ recognition.onresult = function(event) {
       console.log("in next");
 
       triggerModule("next");
-    }else if(interim_transcript.indexOf("switch") >= 0){
+    }else if(interim_transcript.indexOf("stop the music") >= 0){
 
       answered = 1;
 
       console.log(answered);
-      console.log("switch");
+      console.log("stop music");
 
-      triggerModule("switch");
+      triggerModule("stop_music");
+    }else if(interim_transcript.indexOf("open you up") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("jeffrey");
+
+      triggerModule("jeffrey");
     }
 
   }
-
-  if(final_transcript){
-    jeffreySendMsg(final_transcript);
-    //recognition.stop();
-  }
-
 };
 
 /* Speech commands */
@@ -472,19 +473,16 @@ function triggerModule(module){
           introMsg = "Opening your Santeria tab. Good luck master Hidalgo.";
           break;
       case 'backtest':
-          introMsg = "Right away, master Hidalgo. Firing up your trading station.";
+          introMsg = "Firing up your trading station.";
           break;
       case 'analytics':
           introMsg = "Setting up your data dashboard for Teamstory.";
           break;
       case 'music':
-          introMsg = "Excellent. Let me put something on.";
+          introMsg = "Alright, let me put something on.";
           break;
-      case 'next':
-          introMsg = "Right away.";
-          break;
-      case 'switch':
-          introMsg = "Switching audio.";
+      case 'jeffrey':
+          introMsg = "Excellent, I can't wait to learn something new";
           break;
       default:
   }
@@ -508,9 +506,21 @@ function triggerModule(module){
             answered = 0;
             if(module == "write"){
               jeffreySpeak("Remember master Hidalgo, we do not write in order to be understood; we write in order to understand. Good luck.");
+            }else if(module == "start"){
+              $.simpleWeather({
+                location: 'Vancouver, BC',
+                woeid: '',
+                unit: 'c',
+                success: function(weather) {
+                  var temp = weather.temp + "degrees celsius";
+                  var currentConditions = weather.currently + weather.currently.substring(weather.currently.length - 1) + "y";
+                  var weatherMsg = "It is currently " + temp + " and it is " + currentConditions;
+                  jeffreySpeak(weatherMsg);
+                }
+              });
             }
-
         });
+
       });
     }
    
@@ -619,5 +629,6 @@ setInterval(function() {
 
 //jeffreySpeak("Good Morning Master Hidalgo. How are you?");
 
+startButton();
 
 </script>

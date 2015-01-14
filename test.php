@@ -4,46 +4,66 @@ $module = $_POST["module"];
 
 echo $module;
 
-exec('osascript close_all_chrome_tabs.scpt');	
-
 if($module == "start"){
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Morning"\'');	
 }else if($module == "code"){
+	exec('osascript close_all_chrome_tabs.scpt');
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
 	exec('osascript -e \'tell application "Xcode" to activate\'');
 	exec('osascript -e \'tell application "Slack" to activate\'');
 	exec('osascript -e \'open location "https://app.asana.com/"\'');
 	exec('osascript -e \'open location "http://www.konotor.com"\'');
+	exec('osascript -e \'tell application "System Events" to set frontmost of process "Slack" to true\'');
 } else if($module == "stop"){
+	exec('osascript close_all_chrome_tabs.scpt');
 	exec('osascript -e \'tell app "iTunes" to quit\'');
 	exec('osascript close_all_apps.scpt');
 }else if($module == "write"){
+	exec('osascript close_all_chrome_tabs.scpt');
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Classical Music"\'');	
 	exec('osascript -e \'tell application "Sublime Text" to activate\'');
+	exec('osascript -e \'open location "https://app.asana.com/0/23952007863201/23952007863201/"\'');
+	exec('osascript -e \'tell application "System Events" to set frontmost of process "Sublime Text" to true\'');
 }else if($module == "ukulele"){
+	exec('osascript close_all_chrome_tabs.scpt');
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'open location "http://analogmusicstudios.com/sublime-santeria-ukulele-chords/"\'');
+	exec('osascript -e \'tell application "iTunes" to stop\'');
+	exec('osascript -e \'open location "https://app.asana.com/0/2875518286351/2875518286351/"\'');
+	exec('osascript -e \'tell application "System Events" to set frontmost of process "Google Chrome" to true\'');
 }else if($module == "backtest"){
+	exec('osascript close_all_chrome_tabs.scpt');
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'tell application "Finder" to open POSIX file "/Users/fhm/VirtualBox VMs/Windows/Windows.vbox"\'');
 	exec('osascript -e \'tell application "Finder" to open POSIX file "/Users/fhm/Dropbox/Personal/Trading/Live Account copy.xlsx"\'');
 	exec('osascript -e \'open location "http://www.forexfactory.com"\'');
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
+	exec('osascript -e \'open location "https://app.asana.com/0/23952007863199/23952007863199"\'');
+	exec('osascript -e \'tell application "System Events" to set frontmost of process "Virtual Box" to true\'');
 }else if($module == "analytics"){
+	exec('osascript close_all_chrome_tabs.scpt');
 	exec('osascript close_all_apps.scpt');
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
 	exec('osascript -e \'open location "https://mixpanel.com/report/477109/events/#events"\'');
 	exec('osascript -e \'open location "https://www.google.com/analytics/web/?hl=en#report/app-overview/a49381420w81115025p83961631/"\'');
 	exec('osascript -e \'open location "https://crashlytics.com/teamstory/ios/apps/com.growple.teamstory/answers/daily_active_users"\'');
 	exec('osascript -e \'open location "https://docs.google.com/spreadsheets/d/0AgYLId9W6abVdHdFbnVSZXBWT3BHZnlnUzhhSU1kM1E/edit?usp=drive_web"\'');
+	exec('osascript -e \'tell application "System Events" to set frontmost of process "Google Chrome" to true\'');
 }else if($module == "music"){
 	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
 }else if($module == "next"){
 	exec('osascript -e \'tell app "iTunes" to play next track\'');
-}else if($module == "switch"){
-	exec('osascript  switch_audio_output.scpt');
+}else if($module == "stop_music"){
+	exec('osascript -e \'tell application "iTunes" to stop\'');
+}else if($module == "jeffrey"){
+	exec('osascript close_all_chrome_tabs.scpt');
+	exec('osascript close_all_apps.scpt');
+	exec('osascript -e \'tell app "iTunes" to play the playlist "Music"\'');
+	exec('osascript -e \'tell application "Sublime Text" to activate\'');
+	exec('osascript -e \'open location "https://app.asana.com/0/23952007863213/23952007863213"\'');
+	exec('osascript -e \'tell application "System Events" to set frontmost of process "Sublime Text" to true\'');
 }
 
 
