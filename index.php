@@ -388,6 +388,30 @@ recognition.onresult = function(event) {
       console.log("jeffrey");
 
       triggerModule("jeffrey");
+    }else if(interim_transcript.indexOf("off") >= 0 || interim_transcript.indexOf("gone") >= 0 || interim_transcript.indexOf("leaving") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("off");
+
+      triggerModule("off");
+    }else if(interim_transcript.indexOf("I'm back") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("back");
+
+      triggerModule("back");
+    }else if(interim_transcript.indexOf("time") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("time");
+
+      jeffreySpeak("It is currently " + timeNow());
     }
 
   }
@@ -452,6 +476,23 @@ function jeffreySpeak(result, callback){
     }  
 }
 
+ function timeNow(){
+    var now= new Date(), 
+    ampm= 'in the morning', 
+    h= now.getHours(), 
+    m= now.getMinutes(), 
+    s= now.getSeconds();
+    if(h>= 12){
+        if(h>12) h -= 12;
+        ampm= 'in the afternoon';
+    }
+
+    if(m<10) m= '0'+m;
+    if(s<10) s= '0'+s;
+    return h + ':' + m + ' ' + ampm;
+}
+
+
 function triggerModule(module){
 
   var introMsg = ""; 
@@ -484,6 +525,12 @@ function triggerModule(module){
       case 'jeffrey':
           introMsg = "Excellent, I can't wait to learn something new";
           break;
+      case 'off':
+          introMsg = "Goodbye master Hidalgo, see you soon";
+          break;
+      case 'back':
+          introMsg = "Welcome back, master Hidalgo! What shall we do now?";
+          break;
       default:
   }
 
@@ -513,8 +560,8 @@ function triggerModule(module){
                 unit: 'c',
                 success: function(weather) {
                   var temp = weather.temp + "degrees celsius";
-                  var currentConditions = weather.currently + weather.currently.substring(weather.currently.length - 1) + "y";
-                  var weatherMsg = "It is currently " + temp + " and it is " + currentConditions;
+                  var currentConditions = weather.currently;
+                  var weatherMsg = "It is currently " + temp + " and there is currently " + currentConditions;
                   jeffreySpeak(weatherMsg);
                 }
               });
