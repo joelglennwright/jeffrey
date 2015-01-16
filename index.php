@@ -395,7 +395,7 @@ recognition.onresult = function(event) {
       console.log(answered);
       console.log("off");
 
-      triggerModule("off");
+      triggerModule("off"); 
     }else if(interim_transcript.indexOf("I'm back") >= 0){
 
       answered = 1;
