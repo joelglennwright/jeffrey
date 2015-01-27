@@ -271,6 +271,8 @@ recognition.onend = function() {
 
 recognition.onresult = function(event) {
 
+  console.log("in result");
+
   var interim_transcript = '';
   
   // Loop through results as engine tries to match input, assign to interim or final string
@@ -282,13 +284,15 @@ recognition.onresult = function(event) {
     }
   }
 
+  console.log("interim: " + interim_transcript);
+
   // Output result to html
   final_transcript = capitalize(final_transcript);
   final_span.innerHTML = linebreak(final_transcript);
   interim_span.innerHTML = linebreak(interim_transcript);
 
 
-  if(interim_transcript.indexOf("Jef") >= 0 && answered == 0){
+  if(interim_transcript.indexOf("Jeffrey") >= 0 && answered == 0){
 
     console.log("in jeffrey");
 
@@ -314,7 +318,7 @@ recognition.onresult = function(event) {
 
       //recognition.stop();
 
-    }else if(interim_transcript.indexOf("I'm done for the day") >= 0){
+    }else if(interim_transcript.indexOf("done for the day") >= 0){
 
       answered = 1;
 
@@ -412,7 +416,17 @@ recognition.onresult = function(event) {
       console.log("time");
 
       jeffreySpeak("It is currently " + timeNow());
+      
+    }else if(interim_transcript.indexOf("classical") >= 0){
+
+      answered = 1;
+
+      console.log(answered);
+      console.log("classical");
+
+      triggerModule("classical");
     }
+
 
   }
 };
@@ -530,6 +544,9 @@ function triggerModule(module){
           break;
       case 'back':
           introMsg = "Welcome back, master Hidalgo! What shall we do now?";
+          break;
+      case 'classical':
+          introMsg = "Right away.";
           break;
       default:
   }
