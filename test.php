@@ -78,6 +78,9 @@ if($module == "start"){
 	exec('osascript dim_screen.scpt');
 }else if($module == "back"){
 	exec('osascript bright_screen.scpt');
+}else if($module == "classical"){
+	exec('osascript -e \'tell app "iTunes" to play the playlist "Classical Music"\'');
+	exec('osascript -e \'tell application "System Events" to tell process "iTunes" to click menu item 1 of menu 1 of menu item "Shuffle" of menu 1 of menu bar item "Controls" of menu bar 1\'');
 }
 
 
